@@ -14,7 +14,7 @@ const subcategory: React.FC = () => {
   const { mutate } = useDeleteSub();
 
   const useDelSub = () => {
-    message.success("Category deleted");
+    message.success("Sub-category deleted succesfully");
   };
 
   const deleteState = (id: number) => {
