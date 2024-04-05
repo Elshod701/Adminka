@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Image, Popconfirm, Table, Tabs } from "antd";
+import { Image, Table, Tabs } from "antd";
 import type { TabsProps } from "antd";
 import { message } from "antd";
 import GetEditForm from "../../../components/edit-form/edit-form";
-import { usePatchCategories } from "../../../service/mutation/use-patch-categories";
-import { useGetSingleCatProduct } from "../../../service/query/use-edit-single-CatProduct";
+import { usePatchCategories } from "../../../service/mutation/category/use-patch-categories";
+import { useGetSingleCatProduct } from "../../../service/query/use-get-single-category";
 import { ProductType } from "../../../types/product-type";
 // import SubList from "../../sub-category/sub-list/sub-list";
 
@@ -59,7 +59,7 @@ const EditCategory: React.FC = () => {
     mutate(form, {
       onSuccess: () => {
         message.success("Edited category");
-        navigate("/app/category");
+        navigate("/app/category/");
       },
     });
   };

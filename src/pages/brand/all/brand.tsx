@@ -1,21 +1,21 @@
+import "../style.scss";
 import React from "react";
 import { useState } from "react";
-import { useDeleteCategories } from "../../../service/mutation/category/use-delete-categories";
-import { useGetCategories } from "../../../service/query/use-get-categories";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { useDeleteBrands } from "../../../service/mutation/brand/use-delete-brand";
+import { useGetBrands } from "../../../service/query/use-get-brands";
 import { Button, Image, Popconfirm, Table, message } from "antd";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useNavigate, Link } from "react-router-dom";
 import { CategoryType } from "../../../types/category-type";
-import "../style.scss";
 
-const CatygoryList: React.FC = () => {
+const Brand: React.FC = () => {
   const navigate = useNavigate();
   const [del, setDel] = useState<number[]>([]);
-  const { mutate } = useDeleteCategories();
-  const { data } = useGetCategories();
+  const { mutate } = useDeleteBrands();
+  const { data } = useGetBrands();
 
   const DelCategory = () => {
-    message.success("Category deleted");
+    message.success("Brand deleted");
   };
 
   const deleteState = (id: number) => {
@@ -28,7 +28,7 @@ const CatygoryList: React.FC = () => {
   };
 
   const edit = (id: number) => {
-    navigate(`/app/category-edit/${id}`);
+    navigate(`/app/brand-edit/${id}`);
   };
 
   const columns = [
@@ -89,4 +89,4 @@ const CatygoryList: React.FC = () => {
   );
 };
 
-export default CatygoryList;
+export default Brand;

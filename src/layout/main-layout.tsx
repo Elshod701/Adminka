@@ -75,6 +75,7 @@ const MainLayout: React.FC = () => {
             }}
           >
             <Outlet />
+            
           </Content>
         </Layout>
       </Layout>

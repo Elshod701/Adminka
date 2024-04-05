@@ -5,11 +5,15 @@ import {
   Form,
   Image,
   Input,
+  Select,
   Upload,
   UploadFile,
   UploadProps,
 } from "antd";
 import { CloudUploadOutlined } from "@ant-design/icons";
+import { useGetCategories } from "../../service/query/use-get-categories";
+import { FildTypeCategory } from "../edit-form/edit-form";
+import { nanoid } from "nanoid";
 
 interface Props {
   onFinish: (values: FildTypeCategory) => void;
@@ -20,18 +24,11 @@ interface Props {
   };
 }
 
-export interface FildTypeCategory {
-  title: string;
-  image?: {
-    file: File;
-  };
-  parent?: number;
-}
-
-const GetEditForm: React.FC<Props> = ({ onFinish, initialValues, loading }) => {
+const GetSubForm: React.FC<Props> = ({ onFinish, initialValues, loading }) => {
   const [fileList, setFileList] = React.useState<UploadFile[]>([]);
   const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) =>
     setFileList(newFileList);
+  const { data } = useGetCategories();
 
   return (
     <Form
@@ -44,10 +41,23 @@ const GetEditForm: React.FC<Props> = ({ onFinish, initialValues, loading }) => {
     >
       <Form.Item
         name="title"
-        label="Category Name..."
+        label="Sub-category name"
         rules={[{ required: true }]}
       >
         <Input />
+      </Form.Item>
+
+      <Form.Item
+        name="select"
+        label="Select category"
+        rules={[{ required: true }]}
+      >
+        <Select
+          options={data?.results?.map((e: any) => ({
+            value: e.id,
+            label: e.title,
+          }))}
+        />
       </Form.Item>
 
       <Form.Item
@@ -87,4 +97,4 @@ const GetEditForm: React.FC<Props> = ({ onFinish, initialValues, loading }) => {
   );
 };
 
-export default GetEditForm;
+export default GetSubForm;

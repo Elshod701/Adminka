@@ -10,4 +10,10 @@ export interface ProductType {
     image: string;
     title: string;
   }[];
+  data?: {
+    id: string;
+    image: string;
+    title: string;
+    parent: number;
+  };
 }

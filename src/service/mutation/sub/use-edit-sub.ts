@@ -1,12 +1,12 @@
+import { request } from "../../../config/request";
 import { useMutation } from "@tanstack/react-query";
-import { ProductType } from "../../types/product-type";
-import { request } from "../../config/request";
+import { ProductType } from "../../../types/product-type";
 
-export const useCreateProduct = () => {
+export const useEditSub = (id: string) => {
   return useMutation({
     mutationFn: (data: FormData) =>
       request
-        .post<ProductType>("/category/", data, {
+        .patch<ProductType>(`/category/${id}/`, data, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

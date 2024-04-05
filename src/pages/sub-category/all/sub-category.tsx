@@ -1,20 +1,19 @@
-import React from "react";
-import { useState } from "react";
-import { useDeleteCategories } from "../../../service/mutation/category/use-delete-categories";
-import { useGetCategories } from "../../../service/query/use-get-categories";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Image, Popconfirm, Table, message } from "antd";
-import { useNavigate, Link } from "react-router-dom";
-import { CategoryType } from "../../../types/category-type";
 import "../style.scss";
+import { useGetSubCategories } from "../../../service/query/use-get-sub";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, Image, Popconfirm, Table, message } from "antd";
+import { useState } from "react";
+import { useDeleteSub } from "../../../service/mutation/sub/use-del-sub";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { CategoryType } from "../../../types/category-type";
 
-const CatygoryList: React.FC = () => {
+const subcategory: React.FC = () => {
+  const { data } = useGetSubCategories();
   const navigate = useNavigate();
   const [del, setDel] = useState<number[]>([]);
-  const { mutate } = useDeleteCategories();
-  const { data } = useGetCategories();
+  const { mutate } = useDeleteSub();
 
-  const DelCategory = () => {
+  const useDelSub = () => {
     message.success("Category deleted");
   };
 
@@ -22,13 +21,13 @@ const CatygoryList: React.FC = () => {
     mutate(id, {
       onSuccess: () => {
         setDel([...del, id]);
-        DelCategory();
+        useDelSub();
       },
     });
   };
 
   const edit = (id: number) => {
-    navigate(`/app/category-edit/${id}`);
+    navigate(`/app/sub-edit/${id}`);
   };
 
   const columns = [
@@ -79,7 +78,7 @@ const CatygoryList: React.FC = () => {
     : [];
   return (
     <>
-      <Link to={"/app/category-create"}>
+      <Link to={"/app/sub-create"}>
         <Button type="primary" style={{ marginBottom: 16 }}>
           Create
         </Button>
@@ -89,4 +88,4 @@ const CatygoryList: React.FC = () => {
   );
 };
 
-export default CatygoryList;
+export default subcategory;

@@ -1,5 +1,5 @@
 import React from "react";
-import { usePostLogin } from "../../service/mutation/use-post-login";
+import { usePostLogin } from "../../service/mutation/login/use-post-login";
 // import { loadState, saveState } from "../../lib/lib";
 import { Button, Form, Input, message } from "antd";
 import { LoginType } from "../../types/login-type";
@@ -17,7 +17,7 @@ const Login: React.FC = () => {
         Cookies.set("user", data.token, { expires: 1 });
         message.success("Logined succesfully !!!");
         if (Cookies.get("user")) {
-          navigate("/app");
+          navigate("/app/category");
         } else if (!Cookies.get("user")) {
           navigate("/");
         }
