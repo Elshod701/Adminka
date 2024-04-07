@@ -3,20 +3,45 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Image, Table, Tabs } from "antd";
 import type { TabsProps } from "antd";
 import { message } from "antd";
-import GetEditForm from "../../../components/edit-form/edit-form";
-import { useGetSingleCatProduct } from "../../../service/query/use-get-single-category";
-import { ProductType } from "../../../types/product-type";
-import { useEditSub } from "../../../service/mutation/sub/use-edit-sub";
+import GetEditForm from "../../components/edit-form/edit-form";
+import { usePatchCategories } from "../../service/mutation/category/use-patch-categories";
+import { useGetSingleCatProduct } from "../../service/query/use-get-single-category";
+import { ProductType } from "../../types/product-type";
 // import SubList from "../../sub-category/sub-list/sub-list";
 
 const onChange = (key: string) => {
   console.log(key);
 };
 
-const EditSub: React.FC = () => {
+const EditCategory: React.FC = () => {
   const { id } = useParams();
-  const { mutate, isPending } = useEditSub(id as string);
+  const { mutate, isPending } = usePatchCategories(id as string);
   const { data } = useGetSingleCatProduct(id as string);
+
+  const tableBody = data?.children?.map((e) => ({
+    key: e.id,
+    image: e.image,
+    title: e.title,
+    id: e.id,
+  }));
+
+  const columns: Array<{
+    title: string;
+    dataIndex: string;
+    key: string;
+    render?: (data: string) => JSX.Element;
+  }> = [
+    { title: "ID", dataIndex: "id", key: "id" },
+    { title: "Name", dataIndex: "title", key: "title" },
+    {
+      title: "Image",
+      dataIndex: "image",
+      key: "image",
+      render: (data: string) => {
+        return <Image src={data} style={{ width: 70 }} />;
+      },
+    },
+  ];
 
   const CheckTypeImage = data?.image
     ? typeof data.image === "string"
@@ -33,8 +58,8 @@ const EditSub: React.FC = () => {
     }
     mutate(form, {
       onSuccess: () => {
-        message.success("Sub-category edited");
-        navigate("/app/sub-category/");
+        message.success("Edited category");
+        navigate("/app/category/");
       },
     });
   };
@@ -42,7 +67,7 @@ const EditSub: React.FC = () => {
   const items: TabsProps["items"] = [
     {
       key: "1",
-      label: "Edit sub category",
+      label: "Edit category",
       children: (
         <GetEditForm
           loading={isPending}
@@ -50,6 +75,11 @@ const EditSub: React.FC = () => {
           initialValues={{ title: data?.title, image: CheckTypeImage }}
         />
       ),
+    },
+    {
+      key: "2",
+      label: "Category's sub-category",
+      children: <Table dataSource={tableBody} columns={columns} />,
     },
   ];
   2;
@@ -61,4 +91,4 @@ const EditSub: React.FC = () => {
   );
 };
 
-export default EditSub;
+export default EditCategory;

@@ -1,11 +1,11 @@
-import "../style.scss";
-import { useGetSubCategories } from "../../../service/query/use-get-sub";
+import "./style.scss";
+import { useGetSubCategories } from "../../service/query/use-get-sub";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Image, Popconfirm, Table, message } from "antd";
 import { useState } from "react";
-import { useDeleteSub } from "../../../service/mutation/sub/use-del-sub";
+import { useDeleteSub } from "../../service/mutation/sub/use-del-sub";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { CategoryType } from "../../../types/category-type";
+import { CategoryType } from "../../types/category-type";
 
 const subcategory: React.FC = () => {
   const { data } = useGetSubCategories();

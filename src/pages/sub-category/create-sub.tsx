@@ -2,9 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { message, Tabs } from "antd";
 import type { TabsProps } from "antd";
-import { createCategoryType } from "../../../types/create-category-type";
-import GetSubForm from "../../../components/sub-form/sub-form";
-import { useCreateSub } from "../../../service/mutation/sub/use-post-sub";
+import { createCategoryType } from "../../types/create-category-type";
+import GetSubForm from "../../components/sub-form/sub-form";
+import { useCreateSub } from "../../service/mutation/sub/use-post-sub";
 
 const CreateCategory: React.FC = () => {
   const [state, setState] = React.useState("1");

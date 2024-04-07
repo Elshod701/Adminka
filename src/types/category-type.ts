@@ -1,6 +1,13 @@
 export interface CategoryType {
-  id: Number;
-  title: string;
-  image: string;
-  results?: [title: string];
+  results: {
+    id: Number;
+    title: string;
+    image: string;
+    key?: number;
+    results?: {
+      title: string;
+      id?: number;
+      image?: string;
+    }[];
+  };
 }

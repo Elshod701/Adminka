@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Tabs } from "antd";
 import type { TabsProps } from "antd";
 import { message } from "antd";
-import { useCreateProduct } from "../../../service/mutation/category/use-post-categories";
-import GetEditForm from "../../../components/edit-form/edit-form";
-import { createCategoryType } from "../../../types/create-category-type";
+import { useCreateCategory } from "../../service/mutation/category/use-post-categories";
+import GetEditForm from "../../components/edit-form/edit-form";
+import { createCategoryType } from "../../types/create-category-type";
 // import SubList from "../../sub-category/sub-list/sub-list";
 
 const CreateCategory: React.FC = () => {
@@ -13,7 +13,7 @@ const CreateCategory: React.FC = () => {
   const [limit, setLimit] = React.useState(false);
   const [disabled, setDisabled] = React.useState(true);
   const navigate = useNavigate();
-  const { mutate, reset, isPending } = useCreateProduct();
+  const { mutate, reset, isPending } = useCreateCategory();
   const [location, setLocation] = React.useState("");
 
   const onFinish = (values: createCategoryType) => {

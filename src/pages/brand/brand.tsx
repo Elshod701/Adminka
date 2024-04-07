@@ -1,12 +1,12 @@
-import "../style.scss";
+import "./style.scss";
 import React from "react";
 import { useState } from "react";
-import { useDeleteBrands } from "../../../service/mutation/brand/use-delete-brand";
-import { useGetBrands } from "../../../service/query/use-get-brands";
+import { useDeleteBrands } from "../../service/mutation/brand/use-delete-brand";
+import { useGetBrands } from "../../service/query/use-get-brands";
 import { Button, Image, Popconfirm, Table, message } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useNavigate, Link } from "react-router-dom";
-import { CategoryType } from "../../../types/category-type";
+import { CategoryType } from "../../types/category-type";
 
 const Brand: React.FC = () => {
   const navigate = useNavigate();

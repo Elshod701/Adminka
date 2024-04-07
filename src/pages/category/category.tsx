@@ -1,12 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { useDeleteCategories } from "../../../service/mutation/category/use-delete-categories";
-import { useGetCategories } from "../../../service/query/use-get-categories";
+import { useDeleteCategories } from "../../service/mutation/category/use-delete-categories";
+import { useGetCategories } from "../../service/query/use-get-categories";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Image, Popconfirm, Table, message } from "antd";
 import { useNavigate, Link } from "react-router-dom";
-import { CategoryType } from "../../../types/category-type";
-import "../style.scss";
+import "./style.scss";
 
 const CatygoryList: React.FC = () => {
   const navigate = useNavigate();
@@ -67,7 +66,7 @@ const CatygoryList: React.FC = () => {
       ),
     },
   ];
-  const product = data?.results?.map((item: CategoryType) => ({
+  const product = data?.results?.map((item) => ({
     title: item.title,
     id: item.id,
     key: item.id,
