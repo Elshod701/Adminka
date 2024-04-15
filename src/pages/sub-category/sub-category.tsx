@@ -7,7 +7,7 @@ import { useDeleteSub } from "../../service/mutation/sub/use-del-sub";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { CategoryType } from "../../types/category-type";
 
-const subcategory: React.FC = () => {
+const SubCategory: React.FC = () => {
   const { data } = useGetSubCategories();
   const navigate = useNavigate();
   const [del, setDel] = useState<number[]>([]);
@@ -88,4 +88,4 @@ const subcategory: React.FC = () => {
   );
 };
 
-export default subcategory;
+export default SubCategory;

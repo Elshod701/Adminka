@@ -3,6 +3,7 @@ import { BiSolidCategory } from "react-icons/bi";
 import { MdSubject } from "react-icons/md";
 import { SiBrandfolder } from "react-icons/si";
 import { FaProductHunt } from "react-icons/fa";
+import { IoNewspaperOutline } from "react-icons/io5";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Layout, Menu, Button, theme } from "antd";
 import { NavLink, Outlet } from "react-router-dom";
@@ -41,13 +42,18 @@ const MainLayout: React.FC = () => {
               },
               {
                 key: "3",
+                icon: <FaProductHunt />,
+                label: <NavLink to={"/app/product"}>Product</NavLink>,
+              },
+              {
+                key: "4",
                 icon: <SiBrandfolder />,
                 label: <NavLink to={"/app/brand"}>Brand</NavLink>,
               },
               {
-                key: "4",
-                icon: <FaProductHunt />,
-                label: <NavLink to={"/app/product"}>Product</NavLink>,
+                key: "5",
+                icon: <IoNewspaperOutline />,
+                label: <NavLink to={"/app/banner"}>Banner</NavLink>,
               },
             ]}
           />
@@ -75,7 +81,6 @@ const MainLayout: React.FC = () => {
             }}
           >
             <Outlet />
-            
           </Content>
         </Layout>
       </Layout>
