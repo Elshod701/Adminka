@@ -3,9 +3,9 @@ import { BiSolidCategory } from "react-icons/bi";
 import { MdSubject } from "react-icons/md";
 import { SiBrandfolder } from "react-icons/si";
 import { FaProductHunt } from "react-icons/fa";
-import { IoNewspaperOutline } from "react-icons/io5";
+import { IoNewspaperOutline, IoSearch } from "react-icons/io5";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Layout, Menu, Button, theme } from "antd";
+import { Layout, Menu, Button, theme, Input, Modal } from "antd";
 import { NavLink, Outlet } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 
@@ -59,7 +59,15 @@ const MainLayout: React.FC = () => {
           />
         </Sider>
         <Layout>
-          <Header style={{ padding: 0, background: colorBgContainer }}>
+          <Header
+            style={{
+              padding: 0,
+              background: colorBgContainer,
+              display: "flex",
+              alignItems: "center",
+              gap: "20px",
+            }}
+          >
             <Button
               type="text"
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}

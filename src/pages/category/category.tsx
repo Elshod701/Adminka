@@ -3,16 +3,47 @@ import { useState } from "react";
 import { useDeleteCategories } from "../../service/mutation/category/use-delete-categories";
 import { useGetCategories } from "../../service/query/use-get-categories";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Image, Popconfirm, Table, message } from "antd";
+import {
+  Button,
+  Image,
+  Input,
+  Modal,
+  Pagination,
+  PaginationProps,
+  Popconfirm,
+  Table,
+  message,
+} from "antd";
 import { useNavigate, Link } from "react-router-dom";
+import { IoSearch } from "react-icons/io5";
+import { useGetSearchCategories } from "../../service/query/use-get-search-category";
 import "./style.scss";
+const { Search } = Input;
 
 const CatygoryList: React.FC = () => {
   const navigate = useNavigate();
   const [del, setDel] = useState<number[]>([]);
   const { mutate } = useDeleteCategories();
-  const { data } = useGetCategories();
+  // pagin
+  const [page, setPage] = useState<number>(0);
+  const [pagination, setPagination] = useState(1);
+  const { data } = useGetCategories("id", page);
+  // search
+  const [value, setValue] = useState("");
+  const { data: searchData } = useGetSearchCategories(value);
+  console.log(value);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const DelCategory = () => {
     message.success("Category deleted");
   };
@@ -66,7 +97,7 @@ const CatygoryList: React.FC = () => {
       ),
     },
   ];
-  const product = data?.results?.map((item) => ({
+  const product = data?.data?.results?.map((item) => ({
     title: item.title,
     id: item.id,
     key: item.id,
@@ -76,14 +107,74 @@ const CatygoryList: React.FC = () => {
   const filteredData = product
     ? product.filter((item: any) => !del.includes(item.id))
     : [];
+
+  const name: PaginationProps["onChange"] = (page) => {
+    setPagination(page);
+    setPage((page - 1) * 5);
+  };
+
   return (
     <>
-      <Link to={"/app/category-create"}>
-        <Button type="primary" style={{ marginBottom: 16 }}>
-          Create
-        </Button>
-      </Link>
-      <Table columns={columns} dataSource={filteredData} />
+      <div style={{ display: "flex", gap: "20px" }}>
+        <Link to={"/app/category-create"}>
+          <Button type="primary" style={{ marginBottom: 16 }}>
+            Create
+          </Button>
+        </Link>
+        <div>
+          <Button
+            type="dashed"
+            onClick={showModal}
+            style={{ display: "flex", gap: "5px", alignItems: "center" }}
+          >
+            <IoSearch style={{ fontSize: "16px" }} />
+            Search
+          </Button>
+          <Modal
+            title="Search elements"
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            <Search
+              value={value}
+              onChange={(e) => setValue(e.target.value.trimStart())}
+              id="search_input"
+              style={{ width: "100%", marginBottom: "20px" }}
+              placeholder="Search"
+            />
+            <div>
+              {value.length >= 1 ? (
+                <div>
+                  {searchData?.results && searchData.results.length > 0 ? (
+                    searchData.results.map((e) => (
+                      <div>
+                        <img src={e.image} alt="" />
+                        <p>{e.title}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <h1>No item</h1>
+                  )}
+                </div>
+              ) : (
+                <div>
+                  <h1>Search Product</h1>
+                </div>
+              )}
+            </div>
+          </Modal>
+        </div>
+      </div>
+
+      <Table pagination={false} columns={columns} dataSource={filteredData} />
+      <Pagination
+        onChange={name}
+        total={data?.pageSize}
+        defaultCurrent={page}
+        pageSize={5}
+        current={pagination}
+      />
     </>
   );
 };
