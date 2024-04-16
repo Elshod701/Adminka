@@ -1,8 +1,23 @@
 export interface BannerType {
-  id: number;
-  created_at: string;
-  updated_at: string;
-  image: string;
-  title: string;
-  description: string;
+  count: number;
+  next: string;
+  previous: string;
+  id?: number;
+  image?: {
+    file: File;
+    fileList: FileList;
+  };
+  title?: string;
+  description?: string;
+  results: [
+    {
+      id: number;
+      image: {
+        file: File;
+        fileList: FileList;
+      };
+      title: string;
+      description: string;
+    }
+  ];
 }
