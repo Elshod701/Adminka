@@ -1,5 +1,4 @@
 import React from "react";
-import "./style.scss";
 import {
   Button,
   Form,
@@ -15,14 +14,18 @@ import { BannerType } from "../../types/banner-type";
 interface Props {
   onFinish: (values: BannerType) => void;
   loading: boolean;
-  initialValues?: {
+  initialValues: {
     title?: string;
     image?: string;
     description?: string;
   };
 }
 
-const BannerForm: React.FC<Props> = ({ onFinish, initialValues, loading }) => {
+const BannerEditForm: React.FC<Props> = ({
+  onFinish,
+  initialValues,
+  loading,
+}) => {
   const [fileList, setFileList] = React.useState<UploadFile[]>([]);
   const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) =>
     setFileList(newFileList);
@@ -50,7 +53,7 @@ const BannerForm: React.FC<Props> = ({ onFinish, initialValues, loading }) => {
 
       <Form.Item
         name="image"
-        label="Upload image..."
+        label="Upload image"
         rules={
           initialValues
             ? [{ required: false }]
@@ -75,7 +78,7 @@ const BannerForm: React.FC<Props> = ({ onFinish, initialValues, loading }) => {
           </button>
         </Upload.Dragger>
       </Form.Item>
-      {initialValues && !fileList.length && <Image src={initialValues.image} />}
+      <Image src={initialValues.image} />
       <Form.Item>
         <Button loading={loading} type="primary" htmlType="submit">
           <span>{loading ? "loading..." : "submit"}</span>
@@ -85,4 +88,4 @@ const BannerForm: React.FC<Props> = ({ onFinish, initialValues, loading }) => {
   );
 };
 
-export default BannerForm;
+export default BannerEditForm;

@@ -1,10 +1,16 @@
 import { request } from "../../../config/request";
 import { useMutation } from "@tanstack/react-query";
+import { BannerType } from "../../../types/banner-type";
 
-export const useEditBanner = () => {
+export const useEditBanner = (id: string) => {
   return useMutation({
-    mutationKey: ["edit"],
-    mutationFn: (id: number) =>
-      request.delete(`/banner/${id}/`).then((res) => res.data),
+    mutationFn: (data: FormData) =>
+      request
+        .patch<BannerType>(`/banner/${id}/`, data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => res.data),
   });
 };

@@ -16,7 +16,7 @@ import ProductEdit from "../pages/product/product-edit";
 import ProductDelete from "../pages/product/product-delete";
 import Banner from "../pages/banner/banner";
 import BannerCreate from "../pages/banner/banner-create";
-import { BannerEdit } from "../pages/banner/banner-edit";
+import BannerEdit from "../pages/banner/banner-edit";
 import { BannerDelete } from "../pages/banner/banner-delete";
 
 export const routes = [

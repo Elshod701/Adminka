@@ -7,9 +7,9 @@ export interface BannerType {
     file: File;
     fileList: FileList;
   };
-  title?: string;
+  title?: any;
   description?: string;
-  results: [
+  results?: [
     {
       id: number;
       image: {
