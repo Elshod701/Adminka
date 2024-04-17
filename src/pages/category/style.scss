@@ -3,3 +3,32 @@
   align-items: center;
   gap: 20px;
 }
+
+.search-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.search-item:hover {
+  background: #eeeeee;
+}
+.search-item img {
+  width: 60px;
+  height: 60px;
+}
+
+.search-item p {
+  font-size: 16px;
+  color: black;
+}
+
+.search-result {
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.error404 {
+  margin: 40px auto;
+  display: block;
+}

@@ -5,7 +5,6 @@ import { Button, Image, Popconfirm, Table, message } from "antd";
 import { useState } from "react";
 import { useDeleteSub } from "../../service/mutation/sub/use-del-sub";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { CategoryType } from "../../types/category-type";
 
 const SubCategory: React.FC = () => {
   const { data } = useGetSubCategories();
@@ -66,7 +65,7 @@ const SubCategory: React.FC = () => {
       ),
     },
   ];
-  const product = data?.results?.map((item: CategoryType) => ({
+  const product = data?.results?.map((item: any) => ({
     title: item.title,
     id: item.id,
     key: item.id,

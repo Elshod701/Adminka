@@ -11,9 +11,8 @@ import {
   UploadProps,
 } from "antd";
 import { CloudUploadOutlined } from "@ant-design/icons";
-import { useGetCategories } from "../../service/query/use-get-categories";
 import { FildTypeCategory } from "../edit-form/edit-form";
-import { nanoid } from "nanoid";
+import { useGetCategoriesSelect } from "../../service/query/use-get-categoies-selectFor";
 
 interface Props {
   onFinish: (values: FildTypeCategory) => void;
@@ -28,7 +27,7 @@ const GetSubForm: React.FC<Props> = ({ onFinish, initialValues, loading }) => {
   const [fileList, setFileList] = React.useState<UploadFile[]>([]);
   const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) =>
     setFileList(newFileList);
-  const { data } = useGetCategories();
+  const { data } = useGetCategoriesSelect();
 
   return (
     <Form

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDeleteCategories } from "../../service/mutation/category/use-delete-categories";
 import { useGetCategories } from "../../service/query/use-get-categories";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import notfound from "../../assets/not-found.png";
 import {
   Button,
   Image,
@@ -11,6 +12,7 @@ import {
   Pagination,
   PaginationProps,
   Popconfirm,
+  Spin,
   Table,
   message,
 } from "antd";
@@ -19,15 +21,14 @@ import { IoSearch } from "react-icons/io5";
 import { useGetSearchCategories } from "../../service/query/use-get-search-category";
 import "./style.scss";
 const { Search } = Input;
-
 const CatygoryList: React.FC = () => {
   const navigate = useNavigate();
   const [del, setDel] = useState<number[]>([]);
   const { mutate } = useDeleteCategories();
-  // pagin
+  // paginaton
   const [page, setPage] = useState<number>(0);
   const [pagination, setPagination] = useState(1);
-  const { data } = useGetCategories("id", page);
+  const { data, isLoading } = useGetCategories("id", page);
   // search
   const [value, setValue] = useState("");
   const { data: searchData } = useGetSearchCategories(value);
@@ -44,6 +45,7 @@ const CatygoryList: React.FC = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   const DelCategory = () => {
     message.success("Category deleted");
   };
@@ -145,36 +147,57 @@ const CatygoryList: React.FC = () => {
             />
             <div>
               {value.length >= 1 ? (
-                <div>
+                <div className="search-result">
                   {searchData?.results && searchData.results.length > 0 ? (
                     searchData.results.map((e) => (
-                      <div>
+                      <Link
+                        to={`/app/category-edit/${e.id}`}
+                        className="search-item"
+                      >
                         <img src={e.image} alt="" />
                         <p>{e.title}</p>
-                      </div>
+                      </Link>
                     ))
                   ) : (
-                    <h1>No item</h1>
+                    <img className="error404" src={notfound} alt="" />
                   )}
                 </div>
               ) : (
-                <div>
-                  <h1>Search Product</h1>
-                </div>
+                ""
               )}
             </div>
           </Modal>
         </div>
       </div>
 
-      <Table pagination={false} columns={columns} dataSource={filteredData} />
-      <Pagination
-        onChange={name}
-        total={data?.pageSize}
-        defaultCurrent={page}
-        pageSize={5}
-        current={pagination}
-      />
+      {isLoading ? (
+        <Spin fullscreen size="large">
+          Loading
+        </Spin>
+      ) : (
+        <Table pagination={false} columns={columns} dataSource={filteredData} />
+      )}
+
+      {isLoading ? (
+        ""
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: "30px",
+          }}
+        >
+          <Pagination
+            onChange={name}
+            total={data?.pageSize}
+            defaultCurrent={page}
+            pageSize={5}
+            current={pagination}
+          />
+        </div>
+      )}
     </>
   );
 };

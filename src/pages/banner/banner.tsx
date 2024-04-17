@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDeleteBanner } from "../../service/mutation/banner/use-delete";
 import { useGetBanners } from "../../service/query/use-get-banners";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Image, Popconfirm, Table, message } from "antd";
+import { Button, Image, Popconfirm, Spin, Table, message } from "antd";
 import { useNavigate, Link } from "react-router-dom";
 import "./style.scss";
 
@@ -11,7 +11,7 @@ const Banner: React.FC = () => {
   const navigate = useNavigate();
   const [del, setDel] = useState<number[]>([]);
   const { mutate } = useDeleteBanner();
-  const { data } = useGetBanners();
+  const { data, isLoading } = useGetBanners();
 
   const Delbanner = () => {
     message.success("Banner deleted");
@@ -83,7 +83,13 @@ const Banner: React.FC = () => {
           Create
         </Button>
       </Link>
-      <Table columns={columns} dataSource={filteredData} />
+      {isLoading ? (
+        <Spin size="large" fullscreen>
+          Loading
+        </Spin>
+      ) : (
+        <Table columns={columns} dataSource={filteredData} />
+      )}
     </>
   );
 };
